@@ -1,1 +1,4 @@
 # git config
+[user]
+	name = traycers
+	email = blaze48@mail.ru
