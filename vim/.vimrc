@@ -1,5 +1,7 @@
 " Установка менеджера плагинов vim
 " git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" Сайт плагинов:
+" http://vimawesome.com/
 
 
 
@@ -19,7 +21,12 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
+" дерево файлов
+Plugin 'scrooloose/nerdtree'
+" супер быстрая навигация по файлу
+Plugin 'easymotion/vim-easymotion'
+" панель статуса
+Plugin 'bling/vim-airline'
 
 
 
@@ -89,3 +96,9 @@ nmap <C-t> :tabnew<CR>
 imap <C-t> <Esc>:tabnew<CR>a
 nmap <C-w> :tabclose<CR>
 imap <C-w> <Esc>:tabclose<CR>
+
+" НАСТРОЙКА ПЛАГИНОВ
+let g:airline#extensions#tabline#enabled = 1
+"
+"
+"
