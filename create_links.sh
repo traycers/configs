@@ -6,3 +6,5 @@ echo create symlink for vim
 ln -s "$local/vim/.vimrc" ~/.vimrc
 echo create symlink for git
 ln -s "$local/git/.gitconfig" ~/.gitconfig
+echo create symlink for bash
+ln -s "$local/bash/.bashrc" ~/.bashrc

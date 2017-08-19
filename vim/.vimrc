@@ -27,7 +27,21 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'easymotion/vim-easymotion'
 " панель статуса
 Plugin 'bling/vim-airline'
-
+" коментирование
+Plugin 'scrooloose/nerdcommenter'
+" автодополнение
+Plugin 'valloric/youcompleteme'
+" cofee script
+Plugin 'kchmck/vim-coffee-script'
+" Ruby on Rails
+Plugin 'tpope/vim-rails'
+Plugin 'vim-ruby/vim-ruby'
+" цветовые схемы
+Plugin 'altercation/vim-colors-solarized'
+"Plugin 'tomasr/molokai'
+"Plugin 'flazz/vim-colorschemes'
+"Plugin 'cocopon/iceberg.vim'
+"Plugin 'arcticicestudio/nord-vim'
 
 
 " All of your Plugins must be added before the following line
@@ -37,6 +51,9 @@ filetype plugin indent on    " required
 "	ДАЛЬШЕ МОИ НАСТРОЙКИ
 " включение синтаксиса
 syntax on
+syntax enable
+set background=dark
+colorscheme torte
 " показывать команду
 set showcmd
 " показывать строку с курсором
@@ -92,13 +109,20 @@ set wildmenu
 set wcm=<TAB>
 
 " Открытие\закрытие новой вкладки по CTRL+T и CTRL+W
-nmap <C-t> :tabnew<CR>
-imap <C-t> <Esc>:tabnew<CR>a
-nmap <C-w> :tabclose<CR>
-imap <C-w> <Esc>:tabclose<CR>
+" nmap <C-t> :tabnew<CR>
+" imap <C-t> <Esc>:tabnew<CR>a
+" nmap <C-w> :tabclose<CR>
+" imap <C-w> <Esc>:tabclose<CR>
 
 " НАСТРОЙКА ПЛАГИНОВ
 let g:airline#extensions#tabline#enabled = 1
 "
 "
-"
+" КОМБИНАЦИИ КЛАВИШ
+function RunWith (command)
+  execute "w"
+  execute "!clear;time " . a:command . " " . expand("%")
+endfunction
+
+autocmd FileType coffee nmap <F5> :call RunWith("coffee")<cr>
+autocmd FileType ruby   nmap <F5> :call RunWith("ruby")<cr>
