@@ -37,10 +37,10 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-rails'
 Plugin 'vim-ruby/vim-ruby'
 " цветовые схемы
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'altercation/vim-colors-solarized'
 "Plugin 'tomasr/molokai'
-"Plugin 'flazz/vim-colorschemes'
-"Plugin 'cocopon/iceberg.vim'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'cocopon/iceberg.vim'
 "Plugin 'arcticicestudio/nord-vim'
 
 
@@ -52,8 +52,8 @@ filetype plugin indent on    " required
 " включение синтаксиса
 syntax on
 syntax enable
-set background=dark
-colorscheme torte
+"set background=dark
+colorscheme iceberg
 " показывать команду
 set showcmd
 " показывать строку с курсором
@@ -97,7 +97,8 @@ set hlsearch
 " Включить подсветку невидимых символов
 set list
 " Используем символы как в TextMate для табуляции и конца строки
-set listchars=tab:>-,space:·,precedes:«,extends:»,trail:•,nbsp:␣
+"set listchars=tab:>-,space:·,precedes:«,extends:»,trail:•,nbsp:␣
+set listchars=tab:>-,precedes:«,extends:»,trail:•,nbsp:␣
 
 " Включение автоматического перечитывания файла при изменении
 set autoread

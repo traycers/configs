@@ -122,6 +122,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # Aliases for git
 alias gst='git status'
 alias ga='git add'
+alias gall='git add -- .'
 alias gc='git commit -m'
 alias gp='git pull && git push'
 alias gull='git pull'
