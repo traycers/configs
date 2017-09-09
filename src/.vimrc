@@ -40,7 +40,7 @@ Plugin 'vim-ruby/vim-ruby'
 "Plugin 'altercation/vim-colors-solarized'
 "Plugin 'tomasr/molokai'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'cocopon/iceberg.vim'
+"Plugin 'cocopon/iceberg.vim'
 "Plugin 'arcticicestudio/nord-vim'
 
 
@@ -50,7 +50,7 @@ filetype plugin indent on    " required
 
 "	ДАЛЬШЕ МОИ НАСТРОЙКИ
 " включение синтаксиса
-syntax on
+"syntax on
 syntax enable
 "set background=dark
 colorscheme iceberg
