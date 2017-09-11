@@ -132,3 +132,7 @@ alias gco='git checkout'
 alias gd='git diff'
 # Show git branch
 #export PS1='`__git_ps1 "%s"` \w $ '
+
+export http_proxy=http://shubovich:474290@proxy.bolid.ru:3128/
+export https_proxy=$http_proxy
+
