@@ -1,3 +1,4 @@
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -50,22 +51,27 @@ shopt -s autocd
 function git-current-branch {
     git branch --no-color 2> /dev/null | grep \* | colrm 1 2
 }
-function set_prompt_line {
-    local        BLUE="\[\033[0;34m\]"
-
-    # OPTIONAL - if you want to use any of these other colors:
-    local         RED="\[\033[0;31m\]"
-    local   LIGHT_RED="\[\033[1;31m\]"
-    local       GREEN="\[\033[0;32m\]"
-    local LIGHT_GREEN="\[\033[1;32m\]"
-    local       WHITE="\[\033[1;37m\]"
-    local  LIGHT_GRAY="\[\033[0;37m\]"
-    # END OPTIONAL
-    local     DEFAULT="\[\033[0m\]"
-    export PS1="$BLUE\w $LIGHT_RED[\$(git-current-branch)]$DEFAULT \$ "
-}
-#set_prompt_line
 
 #Promt statement change:
 # https://wiki.archlinux.org/index.php/Bash/Prompt_customization_(Русский)
 # http://gahcep.github.io/blog/2012/07/28/unix-bash-shell-prompt/
+# http://forum.ubuntu.ru/index.php?topic=56010.0
+
+
+files=(".bash_colors")
+path="$HOME/"
+for file in ${files[@]}
+do
+  file_to_load=$path$file
+  if [ -f "$file_to_load" ];
+  then
+    . $file_to_load
+    echo "loaded $file_to_load"
+  fi
+done
+
+PS1="\[$Green\]\u@\h \[$Yellow\]\w \[$ColorReset\]\n\$ "
+
+
+
+
