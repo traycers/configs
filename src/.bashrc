@@ -1,10 +1,12 @@
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# some more cd back aliases
+alias 'cd..'='cd ..'
 
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
 # Aliases for git
 alias gst='git status'
