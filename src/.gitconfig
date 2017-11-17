@@ -1,30 +1,6 @@
-# git config
 [user]
-	name = shubovich
+	name  = shubovich
 	email = shubovich@bolid.ru
-
-[color]
-  ui = true
-  grep = true
-  status = true
-  diff = true
-
-  [color "branch"]
-    current = yellow reverse
-    local   = yellow
-    remote  = green
-
-  [color "diff"]
-    meta       = normal
-    frag       = magenta bold
-    old        = red bold
-    new        = blue bold
-    whitespace = red reverse
-
-  [color "status"]
-    added      = yellow
-    changed    = green
-    untracked  = cyan
 
 [credential]
   helper = cache --timeout=3600

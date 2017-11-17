@@ -12,7 +12,7 @@ set nocompatible
 
 "	НАСТРОЙКА СПИСКА ПЛАГИНОВ
 " необходимо для vundle
-filetype off 
+filetype off
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -28,20 +28,27 @@ Plugin 'easymotion/vim-easymotion'
 " панель статуса
 Plugin 'bling/vim-airline'
 " коментирование
-Plugin 'scrooloose/nerdcommenter'
+"Plugin 'scrooloose/nerdcommenter'
 " автодополнение
-Plugin 'valloric/youcompleteme'
+"Plugin 'valloric/youcompleteme'
 " cofee script
-Plugin 'kchmck/vim-coffee-script'
+"Plugin 'kchmck/vim-coffee-script'
 " Ruby on Rails
-Plugin 'tpope/vim-rails'
-Plugin 'vim-ruby/vim-ruby'
+"Plugin 'tpope/vim-rails'
+"Plugin 'vim-ruby/vim-ruby'
 " цветовые схемы
 "Plugin 'altercation/vim-colors-solarized'
 "Plugin 'tomasr/molokai'
 Plugin 'flazz/vim-colorschemes'
 "Plugin 'cocopon/iceberg.vim'
 "Plugin 'arcticicestudio/nord-vim'
+Plugin 'junegunn/fzf'
+Plugin 'mileszs/ack.vim'
+Plugin 'w0rp/ale'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-sleuth'
 
 
 " All of your Plugins must be added before the following line
@@ -145,3 +152,7 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 
+
+if has("gui_running")
+ set guioptions=
+endif
