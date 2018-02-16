@@ -1,14 +1,17 @@
-" Установка менеджера плагинов vim
-" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " Сайт плагинов:
 " http://vimawesome.com/
+" Установка менеджеров плагинов vim!
+" Vundle:
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" Vim-Plug:
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+"     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
 
 
 " отключение совместимости с vi
 set nocompatible
-
 
 "	НАСТРОЙКА СПИСКА ПЛАГИНОВ
 " необходимо для vundle
@@ -49,6 +52,10 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-sleuth'
+" отступы до =
+junegunn/vim-easy-align
+" снипеты
+'sirver/ultisnips'
 
 
 " All of your Plugins must be added before the following line
