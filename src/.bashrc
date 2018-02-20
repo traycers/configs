@@ -25,8 +25,8 @@ alias gd='git diff'
 #export PS1='`__git_ps1 "%s"` \w $ '
 
 #I need this at work
-export http_proxy=http://shubovich:474290@proxy.bolid.ru:3128/
-export https_proxy=$http_proxy
+#export http_proxy=http://shubovich:474290@proxy.bolid.ru:3128/
+#export https_proxy=$http_proxy
 
 #Remove duplicates in history
 #export HISTCONTROL="ignoredups"
