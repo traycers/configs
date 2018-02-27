@@ -6,8 +6,7 @@
 " git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " VIM-PLUG
 " https://github.com/junegunn/vim-plug
-" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
 " отключение совместимости с vi
@@ -16,7 +15,7 @@ set nocompatible
 
 "	ПЛАГИНЫ
 " необходимо для vundle
-call plug#begin('~/.vim/plugins')
+call plug#begin()
 
 " НАВИГАЦИЯ
 " СУПЕР БЫСТРАЯ НАВИГАЦИЯ ПО ФАЙЛУ
