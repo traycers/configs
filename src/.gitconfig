@@ -1,7 +1,7 @@
 # git config
 [user]
-	name = shubovich
-	email = shubovich@bolid.ru
+  name = shubovich
+  email = shubovich@bolid.ru
 
 [color]
   ui = true
