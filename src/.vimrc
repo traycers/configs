@@ -1,3 +1,6 @@
+" отключение совместимости с vi
+set nocompatible
+
 " САЙТ ПЛАГИНОВ:
 " http://vimawesome.com/
 
@@ -7,16 +10,14 @@
 " VIM-PLUG
 " https://github.com/junegunn/vim-plug
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"
+ 
+if has("win32")
+  set runtimepath=~/.vim,$VIMRUNTIME
+endif
 
 if empty(glob("~/.vim/autoload/plug.vim"))
   execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.github.com/junegunn/vim-plug/master/plug.vim'
 endif
-
-
-" отключение совместимости с vi
-set nocompatible
-
 
 "	ПЛАГИНЫ
 " необходимо для vundle
