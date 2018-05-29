@@ -80,5 +80,4 @@ done
 PS1="\[$Green\]\u@\h \[$Yellow\]\w \[$ColorReset\]\n\$ "
 
 
-
-
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
