@@ -34,7 +34,10 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'bling/vim-airline'
 
 " нечеткий поиск
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+nnoremap <C-p> :<C-u>FZF<CR> 
 
 " КОМЕНТИРОВАНИЕ
 "Plug 'scrooloose/nerdcommenter'
@@ -55,8 +58,6 @@ Plug 'flazz/vim-colorschemes'
 "Plug 'cocopon/iceberg.vim'
 "Plug 'arcticicestudio/nord-vim'
 " ОБРАТИТЬ ВНИМАНИЕ
-" COMMAND-LINE FUZZY FINDER 
-"Plug 'junegunn/fzf'
 " ПОИСК ПО ФАЙЛАМ, АЛЬТЕРНАТИВА GREP
 "Plug 'mileszs/ack.vim'
 "Plug 'w0rp/ale'
@@ -115,7 +116,7 @@ set softtabstop=2
 set expandtab
 
 "	ПОИСК
-" set ignorecase
+set ignorecase
 " set smartcase
 " set incsearch
 " set showmatch
@@ -131,9 +132,12 @@ set listchars=tab:>-,precedes:«,extends:»,trail:•,nbsp:␣
 set autoread
 
 " временные файлы помещаются в:
-set backupdir=~/.vim/temp//
-set undodir=~/.vim/temp//
-set directory=~/.vim/temp//
+" set backupdir=~/.vim/temp//
+" set undodir=~/.vim/temp//
+" set directory=~/.vim/temp//
+set nobackup
+set noswapfile
+set noundofile
 
 " Показывать все возможные кандидаты для выбора при авто-завершении команд в командной строке
 set wildmenu
