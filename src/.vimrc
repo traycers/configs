@@ -188,4 +188,6 @@ if has("gui_running")
  set guioptions=
 endif
 
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+
 " https://github.com/mokevnin/dotfiles/blob/master/files/vimrc 
