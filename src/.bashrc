@@ -12,7 +12,11 @@ PATH=$PATH:$HOME/.rvm/bin
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
-alias hist='$( history -w /dev/stdout | sort | uniq | fzf --reverse )'
+# alias hist='$( history -w /dev/stdout | sort | uniq | fzf --reverse )'
+
+hh(){
+    $( history | rg '  \d{1, 4}  ' -N -r '$1' | sort | uniq | fzf --height 50% --reverse )
+}
 
 # Aliases for git
 alias gst='git status'
