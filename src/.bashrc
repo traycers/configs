@@ -28,6 +28,7 @@ alias gull='git pull'
 alias gush='git push'
 alias gb='git branch'
 alias gco='git checkout'
+alias gco2='git checkout $(git branch | fzf)'
 alias gd='git diff'
 # Show git branch
 #export PS1='`__git_ps1 "%s"` \w $ '
