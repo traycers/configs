@@ -89,7 +89,7 @@ PS1="\[$Green\]\u@\h \[$Yellow\]\w \[$ColorReset\]\n\$ "
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 
-export GOROOT=$HOME/go_root
-export GOPATH=$HOME/go_path
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+# export GOROOT=$HOME/go_root
+# export GOPATH=$HOME/go_path
+# export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
