@@ -13,6 +13,13 @@
         repo: "{{ dot_files_repo }}"
         dest: "{{ dot_files_repo_destination }}"
 
+    - name: Create folder
+      file:
+        path: "{{ansible_env.HOME}}/{{item}}"
+        state: directory
+      loop:
+        - "torrents"
+
     - include: tasks/link_files.yml
       tags:
         - links
@@ -26,9 +33,9 @@
       tags:
         - vim
 
-    - include: tasks/tmux.yml
-      tags:
-        - tmux_plugins
+    # - include: tasks/tmux.yml
+    #   tags:
+    #     - tmux_plugins
 
     - include: tasks/vscode.yml
       tags:
