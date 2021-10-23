@@ -1,0 +1,28 @@
+---
+apt:
+  # CLI
+  git:
+  vim:
+  tmux:
+  htop:
+  curl:
+  jq:
+  tree:
+  wget:
+  p7zip:
+  snap:
+
+  # Languages
+  golang:
+  nodejs:
+  ruby:
+  python3-pip:
+  # python3-setuptools:
+  python3:
+
+  # GUI
+  vlc:
+  wireshark-gtk:
+  transmission-gtk:
+  firefox:
+  tor:

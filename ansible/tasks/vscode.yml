@@ -1,0 +1,13 @@
+---
+- name: Include vscode extension list
+  include_vars: vars/vscode.yml
+  tags:
+    - vscode
+
+- name: Manage vscode extensions
+  command: code --install-extension {{ item.key }} arg1 arg2
+  args:
+    creates: ~/.vscode/extensions/{{ item.key }}.*
+  with_dict: "{{vscode}}"
+  tags:
+    - vscode

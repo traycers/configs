@@ -1,0 +1,68 @@
+---
+- block:
+    - name: Install docker dependencies
+      ansible.builtin.package:
+        name:
+          - curl
+          - apt-transport-https
+          - ca-certificates
+          - software-properties-common
+          - gnupg
+          - lsb-release
+        state: present
+
+    - name: Remove old docker versions!
+      ansible.builtin.package:
+        name:
+          - docker
+          - docker-engine
+          - docker.io
+          - containerd
+          - runc
+        state: absent
+
+    - name: Add docker GPG key
+      become_user: root
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add docker repository to apt
+      become_user: root
+      ansible.builtin.apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu hirsute stable
+        # repo: deb [arch=amd64] https://download.docker.com/{{ ansible_system | lower }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+        state: present
+        update_cache: no
+
+    - name: Install docker
+      ansible.builtin.package:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+
+    - name: Ensure docker deamon is running
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: add users to docker group.
+      become_user: root
+      ansible.builtin.user:
+        name: "{{ ansible_user_id }}"
+        groups: docker
+        append: yes
+
+  become: yes
+  when: ansible_os_family == "Debian"
+  tags:
+    - apt
+  # handlers:
+  # - name: restrart docker
+  #   become: yes
+  #   ansible.builtin.service:
+  #     name: docker
+  #     state: restarted

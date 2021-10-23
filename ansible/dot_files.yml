@@ -1,0 +1,40 @@
+---
+- name: Playbook to manage traycers dotfiles (https://github.com/traycers/configs)
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: load custom vars
+      include_vars: ../vars.yml
+      tags:
+        - always
+
+    - name: Make sure dotfiles are present
+      ansible.builtin.git:
+        repo: "{{ dot_files_repo }}"
+        dest: "{{ dot_files_repo_destination }}"
+
+    - include: tasks/link_files.yml
+      tags:
+        - links
+
+    - include: tasks/packages.yml
+      tags:
+        - packages
+
+    # Needs to be after packages
+    - include: tasks/vim.yml
+      tags:
+        - vim
+
+    - include: tasks/tmux_plugins.yml
+      tags:
+        - tmux_plugins
+
+    - include: tasks/vscode.yml
+      tags:
+        - vscode
+
+    # install docker
+    - include: tasks/docker.yml
+      tags:
+        - docker

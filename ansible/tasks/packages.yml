@@ -1,0 +1,51 @@
+---
+- name: Include APT package list
+  include_vars: vars/apt.yml
+  tags:
+    - apt
+
+- name: Include gems list
+  include_vars: vars/gems.yml
+  tags:
+    - gem
+
+- name: Include python package list
+  include_vars: vars/pip.yml
+  tags:
+    - pip
+
+- block:
+    - name: Update/Upgrade apt
+      apt: update_cache=yes upgrade=dist
+
+    - name: Manage apt packages
+      apt: name={{ item.key }} state={{ item.value.state | default("latest") }}
+      with_dict: "{{apt}}"
+
+    - name: Install vscode
+      become: yes
+      become_user: root
+      community.general.snap:
+        name:
+          - code
+        classic: yes
+        state: present
+      tags:
+        - vscode
+
+  become: yes
+  when: ansible_os_family == "Debian"
+  tags: apt
+
+- block:
+    - name: Manage python packages
+      pip: name={{ item.key }} state={{ item.value.state | default("latest") }} executable={{ item.value.executable | default("pip3") }}
+      with_dict: "{{pip}}"
+      tags:
+        - pip
+
+    - name: Manage ruby packages
+      gem: name={{ item.key }} state={{ item.value.state | default("latest") }}
+      with_dict: "{{gems}}"
+      tags:
+        - gem

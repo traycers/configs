@@ -1,0 +1,3 @@
+---
+dot_files_repo: https://github.com/traycers/configs
+dot_files_repo_destination: "{{ansible_env.HOME}}/dot_files"

@@ -1,0 +1,5 @@
+---
+- name: Install vim plugins
+  command: vim +'PlugInstall --sync' +qa
+  tags:
+    - vim

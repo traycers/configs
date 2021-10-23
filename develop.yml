@@ -1,185 +1,35 @@
 # invoke it:
 # ansible-playbook -i hosts.yml --ask-become-pass --become-user=$user develop.yml
----
-- name: Install application & setup them.
-  hosts: all
-  gather_facts: true
-  become: no
-  vars:
-    dot_files_repo: https://github.com/traycers/configs
-    dot_files_repo_destination: "{{ansible_env.HOME}}/dot_files"
-    vscode_plugins:
-      - golang.go
-      - vscodevim.vim
-      - esbenp.prettier-vscode
-      - dbaeumer.vscode-eslint
-      - pkief.material-icon-theme
-      - redhat.vscode-yaml
-      - tomaciazek.ansible
-      - ms-azuretools.vscode-docker
-      - ms-vscode-remote.remote-containers
-    github_apps:
-      - { file: 'xh-v0.13.0-x86_64-unknown-linux-musl.tar.gz', repo_user: 'ducaale', repo_name: 'xh', version: 'v0.13.0' }
-      - { file: 'fzf-0.27.3-linux_amd64.tar.gz', repo_user: 'junegunn', repo_name: 'fzf', version: '0.27.3' }
-      - { file: 'fd-v8.2.1-x86_64-unknown-linux-musl.tar.gz', repo_user: 'sharkdp', repo_name: 'fd', version: 'v8.2.1' }
-      - { file: 'ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz ', repo_user: 'BurntSushi', repo_name: 'ripgrep', version: '13.0.0' }
-      - { file: 'dust-v0.7.5-x86_64-unknown-linux-musl.tar.gz', repo_user: 'bootandy', repo_name: 'dust', version: 'v0.7.5' }
-      - { file: 'task_linux_amd64.deb', repo_user: 'go-task', repo_name: 'task', version: 'v3.9.0' }
-      - { file: 'bat-v0.18.3-x86_64-unknown-linux-musl.tar.gz', repo_user: 'sharkdp', repo_name: 'bat', version: 'v0.18.3' }
-      - { file: 'starship-x86_64-unknown-linux-musl.tar.gz', repo_user: 'starship', repo_name: 'starship', version: 'v0.58.0' }
+# download applications from Github
 
+# github_apps:
+#   - { file: 'xh-v0.13.0-x86_64-unknown-linux-musl.tar.gz', repo_user: 'ducaale', repo_name: 'xh', version: 'v0.13.0' }
+#   - { file: 'fzf-0.27.3-linux_amd64.tar.gz', repo_user: 'junegunn', repo_name: 'fzf', version: '0.27.3' }
+#   - { file: 'fd-v8.2.1-x86_64-unknown-linux-musl.tar.gz', repo_user: 'sharkdp', repo_name: 'fd', version: 'v8.2.1' }
+#   - { file: 'ripgrep-13.0.0-x86_64-unknown-linux-musl.tar.gz ', repo_user: 'BurntSushi', repo_name: 'ripgrep', version: '13.0.0' }
+#   - { file: 'dust-v0.7.5-x86_64-unknown-linux-musl.tar.gz', repo_user: 'bootandy', repo_name: 'dust', version: 'v0.7.5' }
+#   - { file: 'task_linux_amd64.deb', repo_user: 'go-task', repo_name: 'task', version: 'v3.9.0' }
+#   - { file: 'bat-v0.18.3-x86_64-unknown-linux-musl.tar.gz', repo_user: 'sharkdp', repo_name: 'bat', version: 'v0.18.3' }
+#   - { file: 'starship-x86_64-unknown-linux-musl.tar.gz', repo_user: 'starship', repo_name: 'starship', version: 'v0.58.0' }
 
-  tasks:
-    - name: Install applications
-      ansible.builtin.package:
-        name:
-          - git
-          - vim
-          - tmux
-          - htop
-          - curl
-          - jq
-        state: present
+# - name: Creates directory
+#   file:
+#     path: "{{ ansible_env.HOME }}/github_apps"
+#     state: directory
 
-    - name: Install vim plugins
-      command: vim +'PlugInstall --sync' +qa
-      tags:
-        - vim
+# - name: download api json of applications from Github
+#   ansible.builtin.get_url:
+#     url: "https://api.github.com/repos/{{ item.repo_user }}/{{ item.repo_name }}/releases/latest"
+#     # url: "https://github.com/{{item.repo_user}}/{{ item.repo_name }}/releases/download/{{ item.version }}/{{ item.file }}"
+#     force: yes
+#     dest: "{{ ansible_env.HOME }}/github_apps/{{ item.repo_name }}.json"
+#   loop: "{{ github_apps }}"
 
-    - name: Install vscode
-      become: yes
-      become_user: root
-      community.general.snap:
-        name:
-          - code
-        classic: yes
-        state: present
-      tags:
-        - vscode
+# - name: Get download url
+#   shell: |
+#     ls *.json | xargs jq '.assets | .[] | select(.browser_download_url | contains("x86_64-unknown-linux-musl.tar.gz")) | .browser_download_url' | sed -e 's/^"//' -e 's/"$// | xargs wget '
 
-    - name: Install vscode plugins
-      command: code --install-extension {{ item }} arg1 arg2
-      args:
-        creates: ~/.vscode/extensions/{{ item }}.*
-      loop: "{{ vscode_plugins }}"
-      tags:
-        - vscode
+# - name: download files
+#   shell: |
+#     wget -i links.txt
 
-    - name: Clone dot files from Github
-      ansible.builtin.git:
-        repo: https://github.com/traycers/configs
-        dest: "{{ dot_files_repo_destination }}"
-
-    - name: Create symlinks
-      ansible.builtin.file:
-        src: "{{ dot_files_repo_destination }}/src/{{ item.src }}"
-        state: link
-        path: "{{ansible_env.HOME}}/{{ item.dest }}"
-        force: yes
-      loop:
-        - { src: '.bash_colors', dest: '.bash_colors' }
-        - { src: '.bash_profile', dest: '.bash_profile' }
-        - { src: '.bashrc', dest: '.bashrc' }
-        - { src: '.gitconfig', dest: '.gitconfig' }
-        - { src: '.inputrc', dest: '.inputrc' }
-        - { src: '.tmux.conf', dest: '.tmux.conf' }
-        - { src: '.vimrc ', dest: '.vimrc ' }
-        - { src: 'vscode.settings.json', dest: '.config/Code/User/settings.json' }
-
-    # - name: Creates directory
-    #   file:
-    #     path: "{{ ansible_env.HOME }}/github_apps"
-    #     state: directory
-    
-    # - name: download api json of applications from Github
-    #   ansible.builtin.get_url:
-    #     url: "https://api.github.com/repos/{{ item.repo_user }}/{{ item.repo_name }}/releases/latest"
-    #     # url: "https://github.com/{{item.repo_user}}/{{ item.repo_name }}/releases/download/{{ item.version }}/{{ item.file }}"
-    #     force: yes
-    #     dest: "{{ ansible_env.HOME }}/github_apps/{{ item.repo_name }}.json"
-    #   loop: "{{ github_apps }}"
-
-    # - name: Get download url
-    #   shell: |
-    #     ls *.json | xargs jq '.assets | .[] | select(.browser_download_url | contains("x86_64-unknown-linux-musl.tar.gz")) | .browser_download_url' | sed -e 's/^"//' -e 's/"$// | xargs wget '
-        
-    # - name: download files
-    #   shell: |
-    #     wget -i links.txt
-
-
-- name: Install Docker.
-  hosts: all
-  gather_facts: true
-  become: no
-
-  tasks:
-    - name: Install docker dependencies
-      ansible.builtin.package:
-        name:
-          - curl
-          - apt-transport-https
-          - ca-certificates
-          - software-properties-common
-          - gnupg
-          - lsb-release
-        state: present
-      become: yes
-
-    - name: Remove old docker versions!
-      ansible.builtin.package:
-        name:
-          - docker
-          - docker-engine
-          - docker.io
-          - containerd
-          - runc
-        state: absent
-      become: yes
-
-    - name: Add docker GPG key
-      become: yes
-      become_user: root
-      ansible.builtin.apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
-
-    - name: Add docker repository to apt
-      become: yes
-      become_user: root
-      ansible.builtin.apt_repository: 
-        repo: deb https://download.docker.com/linux/ubuntu hirsute stable
-        # repo: deb [arch=amd64] https://download.docker.com/{{ ansible_system | lower }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
-        state: present
-        update_cache: no
-
-    - name: Install docker
-      ansible.builtin.package:
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-        state: present
-      become: yes
-
-    - name: Ensure docker deamon is running
-      ansible.builtin.service:
-        name: docker
-        state: started
-        enabled: true
-      become: yes
-
-    - name: add users to docker group.
-      become: yes
-      become_user: root
-      ansible.builtin.user:
-        name: "{{ ansible_user_id }}"
-        groups: docker
-        append: yes
-
-  handlers:
-    - name: restrart docker
-      become: yes
-      ansible.builtin.service:
-        name: docker
-        state: restarted
