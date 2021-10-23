@@ -13,8 +13,13 @@ ansible-playbook -i ./ansible/hosts.yml --ask-become-pass --become-user=$user ./
 - tmux
 - Vim
 - Visual Studio Code
+- Transmission
 
 ## Todo
+
+Something wrong with tmp
+
+- [ ] fix install tmux plugins manager
 
 I need configure to install some applications from Github.
 
