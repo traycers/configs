@@ -1,0 +1,127 @@
+# invoke it:
+# ansible-playbook -i hosts.yml --ask-become-pass --become-user=$user develop.yml
+---
+- name: Install application & setup them.
+  hosts: all
+  gather_facts: true
+  become: no
+  vars:
+    dot_files_repo: https://github.com/traycers/configs
+    dot_files_repo_destination: "{{ansible_env.HOME}}/dot_files"
+
+  tasks:
+    - name: Install applications
+      ansible.builtin.package:
+        name:
+          - git
+          - vim
+          - tmux
+          - htop
+          - curl
+        state: present
+
+    - name: Install vscode
+      become: yes
+      become_user: root
+      community.general.snap:
+        name:
+          - code
+        classic: yes
+        state: present
+
+    - name: Clone dot files from Github
+      ansible.builtin.git:
+        repo: https://github.com/traycers/configs
+        dest: "{{ dot_files_repo_destination }}"
+
+    - name: Create symlinks
+      ansible.builtin.file:
+        src: "{{ dot_files_repo_destination }}/src/{{ item }}"
+        state: link
+        path: "{{ansible_env.HOME}}/{{ item }}"
+        force: yes
+      loop:
+        - .bash_colors
+        - .bash_profile 
+        - .bashrc
+        - .gitconfig
+        - .inputrc
+        - .tmux.conf
+        - .vimrc 
+                
+
+- name: Install Docker.
+  hosts: all
+  gather_facts: true
+  become: no
+
+  tasks:
+    - name: Install docker dependencies
+      ansible.builtin.package:
+        name:
+          - curl
+          - apt-transport-https
+          - ca-certificates
+          - software-properties-common
+          - gnupg
+          - lsb-release
+        state: present
+      become: yes
+
+    - name: Remove old docker versions!
+      ansible.builtin.package:
+        name:
+          - docker
+          - docker-engine
+          - docker.io
+          - containerd
+          - runc
+        state: absent
+      become: yes
+
+    - name: Add docker GPG key
+      become: yes
+      become_user: root
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add docker repository to apt
+      become: yes
+      become_user: root
+      ansible.builtin.apt_repository: 
+        repo: deb https://download.docker.com/linux/ubuntu hirsute stable
+        # repo: deb [arch=amd64] https://download.docker.com/{{ ansible_system | lower }}/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable
+        state: present
+        update_cache: no
+
+    - name: Install docker
+      ansible.builtin.package:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: present
+      become: yes
+
+    - name: Ensure docker deamon is running
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+      become: yes
+
+    - name: add users to docker group.
+      become: yes
+      become_user: root
+      ansible.builtin.user:
+        name: "{{ ansible_user_id }}"
+        groups: docker
+        append: yes
+
+  handlers:
+    - name: restrart docker
+      become: yes
+      ansible.builtin.service:
+        name: docker
+        state: restarted
