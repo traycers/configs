@@ -13,3 +13,4 @@
     - { src: ".tmux.conf", dest: ".tmux.conf" }
     - { src: ".vimrc ", dest: ".vimrc " }
     - { src: "vscode.settings.json", dest: ".config/Code/User/settings.json" }
+    - { src: "transmission.json", dest: ".config/transmission/settings.json" }
