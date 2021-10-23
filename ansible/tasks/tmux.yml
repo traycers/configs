@@ -1,5 +1,19 @@
 ---
+- name: Clone TPM repository
+  git:
+    repo: "https://github.com/tmux-plugins/tpm.git"
+    dest: "{{ansible_env.HOME}}/.tmux/plugins/tpm"
+    update: yes
+  become: true
+  tags: tmux
+
 - name: Install tmux plugins
-  command: ~/.local/share/tpm/bin/install_plugins
+  # command: "{{ansible_env.HOME}}/.tmux/plugins/tpm/bin/install_plugins"
+  shell: "source {{ansible_env.HOME}}/.tmux.conf && {{ansible_env.HOME}}/.tmux/plugins/tpm/bin/install_plugins"
   args:
-    creates: ~/.local/share/tmux-plugins
+    executable: /bin/bash
+  become: yes
+  # args:
+  #   creates:
+  #     - "{{ansible_env.HOME}}/.tmux/plugins/tpm/tmux-themepack"
+  #     - "{{ansible_env.HOME}}/.tmux/plugins/tpm/tmux-pain-control"
