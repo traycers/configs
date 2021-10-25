@@ -33,6 +33,17 @@
       tags:
         - vscode
 
+    - name: Install telegram
+      become: yes
+      become_user: root
+      community.general.snap:
+        name:
+          - telegram-desktop
+        classic: yes
+        state: present
+      tags:
+        - telegram
+
   become: yes
   when: ansible_os_family == "Debian"
   tags: apt
