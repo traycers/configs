@@ -28,21 +28,10 @@
       snap:
         name:
           - code
+          - telegram
+          - slack          
         classic: yes
         state: present
-      tags:
-        - vscode
-
-    - name: Install telegram
-      become: yes
-      become_user: root
-      snap:
-        name:
-          - telegram-desktop
-        classic: yes
-        state: present
-      tags:
-        - telegram
 
   become: yes
   when: ansible_os_family == "Debian"
