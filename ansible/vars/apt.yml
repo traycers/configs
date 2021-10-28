@@ -10,6 +10,7 @@ apt:
   tree:
   wget:
   p7zip:
+  p7zip-full:
   snap:
 
   # Languages
@@ -17,7 +18,6 @@ apt:
   nodejs:
   ruby:
   python3-pip:
-  # python3-setuptools:
   python3:
 
   # GUI
@@ -26,3 +26,4 @@ apt:
   transmission-gtk:
   firefox:
   tor:
+  gparted:
