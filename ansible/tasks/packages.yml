@@ -25,7 +25,7 @@
     - name: Install vscode
       become: yes
       become_user: root
-      community.general.snap:
+      snap:
         name:
           - code
         classic: yes
@@ -36,7 +36,7 @@
     - name: Install telegram
       become: yes
       become_user: root
-      community.general.snap:
+      snap:
         name:
           - telegram-desktop
         classic: yes
