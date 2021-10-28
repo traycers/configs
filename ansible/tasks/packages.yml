@@ -28,7 +28,7 @@
       snap:
         name:
           - code
-          - telegram
+          - telegram-desktop
           - slack          
         classic: yes
         state: present
