@@ -1,5 +1,5 @@
 ---
-- name: Playbook to manage traycers dotfiles (https://github.com/traycers/configs)
+- name: Playbook to manage dotfiles
   hosts: localhost
   connection: local
   tasks:
@@ -8,25 +8,28 @@
       tags:
         - always
 
-    - name: Make sure dotfiles are present
-      ansible.builtin.git:
-        repo: "{{ dot_files_repo }}"
-        dest: "{{ dot_files_repo_destination }}"
-
-    - name: Create folder
+    - name: Create folders
       file:
         path: "{{ansible_env.HOME}}/{{item}}"
         state: directory
       loop:
-        - "torrents"
-
-    - include: tasks/link_files.yml
-      tags:
-        - links
-
+        - torrents
+        - .config/Code/User
+        - .config/transmission
+        - .tmux/plugins/tpm
+        
     - include: tasks/packages.yml
       tags:
         - packages
+        
+    - name: Make sure dotfiles are present
+      ansible.builtin.git:
+        repo: "{{ dot_files_repo }}"
+        dest: "{{ dot_files_repo_destination }}"
+        
+    - include: tasks/link_files.yml
+      tags:
+        - links
 
     # Needs to be after packages
     - include: tasks/vim.yml
